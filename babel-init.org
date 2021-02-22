@@ -13,7 +13,7 @@ Just for two things:
 (package-initialize)
 #+END_SRC
 
-- Install use-package so I can spin up a fresh Emacs and right away sets up the packages I normally use
+- Install use-package if it's not already installed. Note the call to package-refresh-contents to make sure this works with freshly installed Emacs too.
 #+BEGIN_SRC emacs-lisp
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -27,8 +27,7 @@ Just for two things:
 Common configuration across all tasks.
 
 *** Separate Customize Settings
-The settings written by Customize aren't meant to be edited manually anyway. Better to separate them
-into another file.
+The settings written by Customize aren't meant to be edited manually, so it's better to separate them into another file. Also, create the custom.el file if it doesn't already exist.
 #+BEGIN_SRC emacs-lisp
 (defconst custom-file-path (expand-file-name "custom.el" user-emacs-directory))
 (unless (file-exists-p custom-file-path)
@@ -38,13 +37,18 @@ into another file.
 #+END_SRC
 
 *** Miscellaneous
-We want mostly to start in home directory.
+Start in home directory.
 #+BEGIN_SRC emacs-lisp
 (setq default-directory "~/")
 #+END_SRC
 
+Yes, when I quit, I do want to kill processes. No need to ask me.
+#+BEGIN_SRC emacs-lisp
+(setq confirm-kill-processes nil)
+#+END_SRC
+
 *** UI Theme
-The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice.
+The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice. I like the Nord Light theme.
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
   :config
@@ -61,7 +65,7 @@ The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice.
 #+END_SRC
 
 *** Other UI Settings
-Start with a larger frame, and center it, kinda.
+Start with a maximized initial frame.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 #+END_SRC
@@ -80,3 +84,21 @@ Line and column modes.
 (global-linum-mode)
 #+END_SRC
 
+** Packages
+Packages I want to install with every fresh Emacs.
+#+BEGIN_SRC emacs-lisp
+(use-package magit
+  :ensure t)
+
+(use-package company
+  :ensure t
+  :config
+  (progn
+    (add-hook 'after-init-hook 'global-company-mode)))
+
+(use-package ivy
+  :ensure t)
+
+(use-package swiper
+  :ensure t)
+#+END_SRC
