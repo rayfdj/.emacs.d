@@ -1,0 +1,82 @@
+* Babelized Emacs User Initialization File
+This is my portable Emacs configuration, to make it easy for me to have the same Emacs across machines, VMs, etc.
+
+** Initial Package Setup
+Just for two things:
+- Adds MELPA to package-archives. Pretty much all the useful extra packages are there.
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
+
+(package-initialize)
+#+END_SRC
+
+- Install use-package so I can spin up a fresh Emacs and right away sets up the packages I normally use
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(require 'use-package)
+
+(setq use-package-always-ensure t)
+#+END_SRC
+
+** Common Configuration
+Common configuration across all tasks.
+
+*** Separate Customize Settings
+The settings written by Customize aren't meant to be edited manually anyway. Better to separate them
+into another file.
+#+BEGIN_SRC emacs-lisp
+(defconst custom-file-path (expand-file-name "custom.el" user-emacs-directory))
+(unless (file-exists-p custom-file-path)
+  (write-region "" nil custom-file-path))
+(setq custom-file custom-file-path)
+(load custom-file)
+#+END_SRC
+
+*** Miscellaneous
+We want mostly to start in home directory.
+#+BEGIN_SRC emacs-lisp
+(setq default-directory "~/")
+#+END_SRC
+
+*** UI Theme
+The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice.
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-nord-light t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+    
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+#+END_SRC
+
+*** Other UI Settings
+Start with a larger frame, and center it, kinda.
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+#+END_SRC
+
+Smaller UI settings for the frame.
+#+BEGIN_SRC emacs-lisp
+(menu-bar-mode nil)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+#+END_SRC
+
+Line and column modes.
+#+BEGIN_SRC emacs-lisp
+(column-number-mode 1)
+(global-hl-line-mode t)
+(global-linum-mode)
+#+END_SRC
+
