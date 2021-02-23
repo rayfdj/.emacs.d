@@ -6,10 +6,8 @@ Just for two things:
 - Adds MELPA to package-archives. Pretty much all the useful extra packages are there.
 #+BEGIN_SRC emacs-lisp
 (require 'package)
-
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
-
 (package-initialize)
 #+END_SRC
 
@@ -19,7 +17,6 @@ Just for two things:
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
-
 (setq use-package-always-ensure t)
 #+END_SRC
 
@@ -47,7 +44,7 @@ Yes, when I quit, I do want to kill processes. No need to ask me.
 (setq confirm-kill-processes nil)
 #+END_SRC
 
-*** UI Theme
+*** UI Settings
 The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice. I like the Nord Light theme.
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -64,22 +61,31 @@ The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice. I lik
   (doom-themes-org-config))
 #+END_SRC
 
-*** Other UI Settings
 Disable the startup screen.
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 #+END_SRC
 
-Start with a maximized initial frame.
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
-#+END_SRC
-
-Smaller UI settings for the frame.
+Disable the menu, scrollbar, and toolbar. They reset initial frame's size so have to be done first.
 #+BEGIN_SRC emacs-lisp
 (menu-bar-mode nil)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
+#+END_SRC
+
+Set initial frame to handle 160x48 characters, and center it on the screen.
+#+BEGIN_SRC emacs-lisp
+;; Set initial frame size and position
+(defun set-initial-frame (max-chars-per-line max-no-of-lines)
+  (let* ((frame-width (* (window-font-width) max-chars-per-line))
+	 (frame-height (* (window-font-height) max-no-of-lines))
+	 (frame-left (truncate (/ (- (display-pixel-width) frame-width) 2)))
+	 (frame-top (truncate (/ (- (display-pixel-height) frame-height) 2))))
+    (set-frame-position (selected-frame) frame-left frame-top)
+    (set-frame-size (selected-frame) frame-width frame-height t)))
+(when (display-graphic-p)
+  (setq frame-resize-pixelwise t)
+  (set-initial-frame 160 48))
 #+END_SRC
 
 Line and column modes.
