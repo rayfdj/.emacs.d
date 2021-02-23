@@ -65,6 +65,11 @@ The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice. I lik
 #+END_SRC
 
 *** Other UI Settings
+Disable the startup screen.
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+#+END_SRC
+
 Start with a maximized initial frame.
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
