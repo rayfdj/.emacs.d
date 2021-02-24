@@ -68,7 +68,7 @@ Disable the startup screen.
 
 Disable the menu, scrollbar, and toolbar. They reset initial frame's size so have to be done first.
 #+BEGIN_SRC emacs-lisp
-(menu-bar-mode nil)
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 #+END_SRC
