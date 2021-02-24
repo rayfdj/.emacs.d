@@ -85,7 +85,7 @@ Set initial frame to handle 160x48 characters, and center it on the screen.
     (set-frame-size (selected-frame) frame-width frame-height t)))
 (when (display-graphic-p)
   (setq frame-resize-pixelwise t)
-  (set-initial-frame 160 48))
+  (set-initial-frame 160 51)) ; +3 lines for the title bar/mode line/minibuffer.
 #+END_SRC
 
 Line and column modes.
