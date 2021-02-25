@@ -112,4 +112,7 @@ Packages I want to install with every fresh Emacs.
 
 (use-package swiper
   :ensure t)
+
+(use-package org-roam
+  :ensure t)
 #+END_SRC
