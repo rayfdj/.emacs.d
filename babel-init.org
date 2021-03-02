@@ -23,6 +23,13 @@ Just for two things:
 ** Common Configuration
 Common configuration across all tasks.
 
+*** Mac Keys Re-mapping
+#+BEGIN_SRC emacs-lisp
+; To allow entering characters such as r
+(setq mac-command-modifier 'meta
+      mac-option-modifier 'none)
+#+END_SRC
+
 *** Separate Customize Settings
 The settings written by Customize aren't meant to be edited manually, so it's better to separate them into another file. Also, create the custom.el file if it doesn't already exist.
 #+BEGIN_SRC emacs-lisp
@@ -107,11 +114,24 @@ Packages I want to install with every fresh Emacs.
   (progn
     (add-hook 'after-init-hook 'global-company-mode)))
 
+(use-package counsel
+  :after ivy
+  :config (counsel-mode))
+
 (use-package ivy
-  :ensure t)
+  :defer 0.1
+  :diminish
+  :bind (("C-c C-r" . ivy-resume)
+         ("C-x B" . ivy-switch-buffer-other-window))
+  :custom
+  (ivy-count-format "(%d/%d) ")
+  (ivy-use-virtual-buffers t)
+  :config (ivy-mode))
 
 (use-package swiper
-  :ensure t)
+  :after ivy
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
 
 (use-package org-roam
   :ensure t)
