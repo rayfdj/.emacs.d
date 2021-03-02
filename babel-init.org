@@ -25,7 +25,7 @@ Common configuration across all tasks.
 
 *** Mac Keys Re-mapping
 #+BEGIN_SRC emacs-lisp
-; To allow entering characters such as r
+; To allow entering chars from non-English languages.
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
 #+END_SRC
