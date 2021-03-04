@@ -23,11 +23,22 @@ Just for two things:
 ** Common Configuration
 Common configuration across all tasks.
 
-*** Mac Keys Re-mapping
+*** Keys Re-mapping
+
+To allow entering chars from non-English languages, map Meta to Command, and free up Option.
 #+BEGIN_SRC emacs-lisp
-; To allow entering chars from non-English languages.
-(setq mac-command-modifier 'meta
-      mac-option-modifier 'none)
+(when (eq system-type 'darwin)
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'none))
+#+END_SRC
+
+I really just want the equivalent of Ctrl+Tab and Ctrl+Shift+Tab. This one only needs you to shift your pinkies a bit.
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-'") #'other-window)
+(global-set-key (kbd "C-;") #'prev-window)
+(defun prev-window ()
+  (interactive)
+  (other-window -1))
 #+END_SRC
 
 *** Separate Customize Settings
@@ -49,6 +60,11 @@ Start in home directory.
 Yes, when I quit, I do want to kill processes. No need to ask me.
 #+BEGIN_SRC emacs-lisp
 (setq confirm-kill-processes nil)
+#+END_SRC
+
+Don't fold org files. Always open expanded.
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-folded nil)
 #+END_SRC
 
 *** UI Settings
@@ -105,14 +121,11 @@ Line and column modes.
 ** Packages
 Packages I want to install with every fresh Emacs.
 #+BEGIN_SRC emacs-lisp
-(use-package magit
-  :ensure t)
+(use-package magit)
 
 (use-package company
-  :ensure t
   :config
-  (progn
-    (add-hook 'after-init-hook 'global-company-mode)))
+  (add-hook 'after-init-hook 'global-company-mode))
 
 (use-package counsel
   :after ivy
@@ -128,11 +141,33 @@ Packages I want to install with every fresh Emacs.
   (ivy-use-virtual-buffers t)
   :config (ivy-mode))
 
+(use-package prescient)
+
+(use-package ivy-prescient
+  :after counsel ; see https://github.com/raxod502/prescient.el#usage
+  :config (ivy-prescient-mode))
+
 (use-package swiper
   :after ivy
   :bind (("C-s" . swiper)
          ("C-r" . swiper)))
 
+(use-package multiple-cursors
+  :bind (("C-c m c" . mc/edit-lines)))
+
 (use-package org-roam
-  :ensure t)
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory "~/Documents/org-roam")
+  (org-roam-dailies-capture-templates
+    '(("d" "default" entry (function org-roam-capture--get-point)
+     "* %?"
+     :file-name "daily/%<%Y-%m-%d>"
+     :head "#+title: %<%B %e, %Y>\n#+roam_tags: \n\n* ")))
+  :config
+  (setq initial-buffer-choice (org-roam-dailies-find-today))
+  ; org-agenda should collect the TODOs from org-roam too.
+  (setq org-agenda-files (directory-files-recursively org-roam-directory "\\.org$")))
 #+END_SRC
+
