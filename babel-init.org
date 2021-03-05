@@ -67,6 +67,15 @@ Don't fold org files. Always open expanded.
 (setq org-startup-folded nil)
 #+END_SRC
 
+Put backup and autosave files in the tmp dir
+#+BEGIN_SRC emacs-lisp
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+#+END_SRC
+
 *** UI Settings
 The [Doom Themes](https://github.com/hlissner/emacs-doom-themes) are nice. I like the Nord Light theme.
 #+BEGIN_SRC emacs-lisp
