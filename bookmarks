@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("babel-init.org"
+(("org-capture-last-stored"
+ (filename . "~/Documents/org-roam/20210308132546-instapaper.org")
+ (front-context-string . "#+title: Instapa")
+ (rear-context-string)
+ (position . 1))
+("babel-init.org"
  (filename . "~/.emacs.d/babel-init.org")
  (front-context-string . "** Common Config")
  (rear-context-string . "e t)\n#+END_SRC\n\n")

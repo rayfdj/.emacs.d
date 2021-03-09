@@ -24,7 +24,6 @@ Just for two things:
 Common configuration across all tasks.
 
 *** Keys Re-mapping
-
 To allow entering chars from non-English languages, map Meta to Command, and free up Option.
 #+BEGIN_SRC emacs-lisp
 (when (eq system-type 'darwin)
@@ -180,3 +179,10 @@ Packages I want to install with every fresh Emacs.
   (setq org-agenda-files (directory-files-recursively org-roam-directory "\\.org$")))
 #+END_SRC
 
+** Org-mode configurations
+Customize TODO states.
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done 'time)
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "ONGOING(o@/!)" "|" "DONE(d!)" "DELEGATED(e@)" "CANCELED(c@)")))
+#+END_SRC
