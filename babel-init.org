@@ -129,6 +129,11 @@ Line and column modes.
 ** Packages
 Packages I want to install with every fresh Emacs.
 #+BEGIN_SRC emacs-lisp
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :config
+  (exec-path-from-shell-initialize))
+
 (use-package magit)
 
 (use-package company
@@ -174,9 +179,16 @@ Packages I want to install with every fresh Emacs.
      :file-name "daily/%<%Y-%m-%d>"
      :head "#+title: %<%B %e, %Y>\n#+roam_tags: \n\n* ")))
   :config
-  (setq initial-buffer-choice (org-roam-dailies-find-today))
   ; org-agenda should collect the TODOs from org-roam too.
   (setq org-agenda-files (directory-files-recursively org-roam-directory "\\.org$")))
+
+(use-package racket-mode)
+
+(use-package projectile
+  :init
+  (projectile-mode +1)
+  :config
+  (setq projectile-project-search-path '("~/projectiles/")))
 #+END_SRC
 
 ** Org-mode configurations
