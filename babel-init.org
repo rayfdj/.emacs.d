@@ -61,11 +61,6 @@ Yes, when I quit, I do want to kill processes. No need to ask me.
 (setq confirm-kill-processes nil)
 #+END_SRC
 
-Don't fold org files. Always open expanded.
-#+BEGIN_SRC emacs-lisp
-(setq org-startup-folded nil)
-#+END_SRC
-
 Put backup and autosave files in the tmp dir
 #+BEGIN_SRC emacs-lisp
 ;; store all backup and autosave files in the tmp dir
@@ -126,6 +121,31 @@ Line and column modes.
 (global-linum-mode)
 #+END_SRC
 
+** Org-mode configurations
+Org and agenda settings
+#+BEGIN_SRC emacs-lisp
+(setq org-directory "~/Documents/org-roam")
+(setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+#+END_SRC
+
+Org mobile settings
+#+BEGIN_SRC emacs-lisp
+(setq org-mobile-directory "~/Library/Mobile Documents/iCloud~com~mobileorg~mobileorg/Documents")
+(setq org-mobile-inbox-for-pull (expand-file-name "from-mobile.org" org-directory))
+#+END_SRC
+
+Customize TODO states.
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done 'time)
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "ONGOING(o@/!)" "|" "DONE(d!)" "DELEGATED(e@)" "CANCELED(c@)")))
+#+END_SRC
+
+Don't fold org files. Always open expanded.
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-folded nil)
+#+END_SRC
+
 ** Packages
 Packages I want to install with every fresh Emacs.
 #+BEGIN_SRC emacs-lisp
@@ -172,15 +192,12 @@ Packages I want to install with every fresh Emacs.
   :hook
   (after-init . org-roam-mode)
   :custom
-  (org-roam-directory "~/Documents/org-roam")
+  (org-roam-directory org-directory)
   (org-roam-dailies-capture-templates
     '(("d" "default" entry (function org-roam-capture--get-point)
      "* %?"
      :file-name "daily/%<%Y-%m-%d>"
-     :head "#+title: %<%B %e, %Y>\n#+roam_tags: \n\n* ")))
-  :config
-  ; org-agenda should collect the TODOs from org-roam too.
-  (setq org-agenda-files (directory-files-recursively org-roam-directory "\\.org$")))
+     :head "#+title: %<%B %e, %Y>\n#+roam_tags: \n\n* "))))
 
 (use-package racket-mode)
 
@@ -189,12 +206,4 @@ Packages I want to install with every fresh Emacs.
   (projectile-mode +1)
   :config
   (setq projectile-project-search-path '("~/projectiles/")))
-#+END_SRC
-
-** Org-mode configurations
-Customize TODO states.
-#+BEGIN_SRC emacs-lisp
-(setq org-log-done 'time)
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "ONGOING(o@/!)" "|" "DONE(d!)" "DELEGATED(e@)" "CANCELED(c@)")))
 #+END_SRC
