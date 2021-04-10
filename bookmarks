@@ -3,10 +3,10 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored"
- (filename . "~/.notes")
- (front-context-string . "** TODO Go throu")
+ (filename . "~/Documents/org-roam/20210406090657-monthly_aws_sync_up.org")
+ (front-context-string . "#+title: Monthly")
  (rear-context-string)
- (position . 9))
+ (position . 1))
 ("babel-init.org"
  (filename . "~/.emacs.d/babel-init.org")
  (front-context-string . "** Common Config")
