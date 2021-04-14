@@ -78,7 +78,7 @@ The [[https://github.com/hlissner/emacs-doom-themes][Doom Themes]] are nice, mod
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-outrun-electric t)
+  (load-theme 'doom-one-light t)
 
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
@@ -126,6 +126,9 @@ Org and agenda settings
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Documents/org-roam")
 (setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
+;(setq org-agenda-files '("~/gtd/inbox.org"
+;                        "~/gtd/gtd.org"
+;                         "~/gtd/tickler.org"))
 #+END_SRC
 
 Org mobile settings
@@ -142,6 +145,11 @@ Customize TODO states.
 #+END_SRC
 
 Don't fold org files. Always open expanded.
+#+BEGIN_SRC emacs-lisp
+(setq org-startup-folded nil)
+#+END_SRC
+
+Set up some capture templates
 #+BEGIN_SRC emacs-lisp
 (setq org-startup-folded nil)
 #+END_SRC
