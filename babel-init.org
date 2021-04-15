@@ -122,13 +122,25 @@ Line and column modes.
 #+END_SRC
 
 ** Org-mode configurations
-Org and agenda settings
+Agenda and Capture settings
 #+BEGIN_SRC emacs-lisp
 (setq org-directory "~/Documents/org-roam")
-(setq org-agenda-files (directory-files-recursively org-directory "\\.org$"))
-;(setq org-agenda-files '("~/gtd/inbox.org"
-;                        "~/gtd/gtd.org"
-;                         "~/gtd/tickler.org"))
+(let ((default-directory (concat (file-name-as-directory org-directory) "gtd")))
+  (setq gtd-inbox-file-path (expand-file-name "inbox.org"))
+  (setq gtd-gtd-file-path (expand-file-name "gtd.org"))
+  (setq gtd-tickler-file-path (expand-file-name "tickler.org"))
+  (setq gtd-someday-file-path (expand-file-name "someday.org")))
+(setq org-agenda-files (list gtd-inbox-file-path gtd-gtd-file-path gtd-tickler-file-path))
+(setq org-refile-targets `((,gtd-gtd-file-path :maxlevel . 3)
+                           (,gtd-someday-file-path :level . 1)
+                           (,gtd-tickler-file-path :maxlevel . 2)))
+(setq org-capture-templates '(("t" "Todo [inbox]" entry
+                               (file+headline gtd-inbox-file-path "Tasks")
+                               "* TODO %i%?")
+                              ("T" "Tickler" entry
+                               (file+headline gtd-tickler-file-path "Tickler")
+                               "* %i%? \n %U")))
+(global-set-key (kbd "C-c c") 'org-capture)
 #+END_SRC
 
 Org mobile settings
