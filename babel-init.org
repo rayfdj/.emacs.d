@@ -124,7 +124,7 @@ Line and column modes.
 ** Org-mode configurations
 Agenda and Capture settings
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Documents/org-roam")
+(setq org-directory "~/Documents/org")
 (let ((default-directory (concat (file-name-as-directory org-directory) "gtd")))
   (setq gtd-inbox-file-path (expand-file-name "inbox.org"))
   (setq gtd-gtd-file-path (expand-file-name "gtd.org"))
@@ -212,7 +212,7 @@ Packages I want to install with every fresh Emacs.
   :hook
   (after-init . org-roam-mode)
   :custom
-  (org-roam-directory org-directory)
+  (org-roam-directory (concat (file-name-as-directory org-directory) "roam"))
   (org-roam-dailies-capture-templates
     '(("d" "default" entry (function org-roam-capture--get-point)
      "* %?"
