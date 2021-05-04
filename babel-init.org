@@ -124,7 +124,7 @@ Line and column modes.
 ** Org-mode configurations
 Agenda and Capture settings
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Documents/org")
+(setq org-directory "~/org")
 (let ((default-directory (concat (file-name-as-directory org-directory) "gtd")))
   (setq gtd-inbox-file-path (expand-file-name "inbox.org"))
   (setq gtd-gtd-file-path (expand-file-name "gtd.org"))
