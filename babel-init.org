@@ -124,7 +124,7 @@ Line and column modes.
 ** Org-mode configurations
 Agenda and Capture settings
 #+BEGIN_SRC emacs-lisp
-(setq org-directory "~/Documents/org")
+(setq org-directory "~/org")
 (let ((default-directory (concat (file-name-as-directory org-directory) "gtd")))
   (setq gtd-inbox-file-path (expand-file-name "inbox.org"))
   (setq gtd-gtd-file-path (expand-file-name "gtd.org"))
@@ -141,12 +141,6 @@ Agenda and Capture settings
                                (file+headline gtd-tickler-file-path "Tickler")
                                "* %i%? \n %U")))
 (global-set-key (kbd "C-c c") 'org-capture)
-#+END_SRC
-
-Org mobile settings
-#+BEGIN_SRC emacs-lisp
-(setq org-mobile-directory "~/Library/Mobile Documents/iCloud~com~mobileorg~mobileorg/Documents")
-(setq org-mobile-inbox-for-pull (expand-file-name "from-mobile.org" org-directory))
 #+END_SRC
 
 Customize TODO states.
