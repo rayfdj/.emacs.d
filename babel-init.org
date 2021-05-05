@@ -324,4 +324,9 @@ Packages I want to install with every fresh Emacs.
   :bind
   ("C-<prior>" . centaur-tabs-backward)
   ("C-<next>" . centaur-tabs-forward))
+
+(use-package git-auto-commit-mode
+  :custom
+  (gac-automatically-push-p t)
+  (gac-automatically-add-new-files-p nil))
 #+END_SRC
