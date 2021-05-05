@@ -143,12 +143,6 @@ Agenda and Capture settings
 (global-set-key (kbd "C-c c") 'org-capture)
 #+END_SRC
 
-Org mobile settings
-#+BEGIN_SRC emacs-lisp
-(setq org-mobile-directory "~/Library/Mobile Documents/iCloud~com~mobileorg~mobileorg/Documents")
-(setq org-mobile-inbox-for-pull (expand-file-name "from-mobile.org" org-directory))
-#+END_SRC
-
 Customize TODO states.
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time)
