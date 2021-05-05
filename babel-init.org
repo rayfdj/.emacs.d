@@ -155,11 +155,6 @@ Don't fold org files. Always open expanded.
 (setq org-startup-folded nil)
 #+END_SRC
 
-Set up some capture templates
-#+BEGIN_SRC emacs-lisp
-(setq org-startup-folded nil)
-#+END_SRC
-
 ** Packages
 Packages I want to install with every fresh Emacs.
 #+BEGIN_SRC emacs-lisp

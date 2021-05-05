@@ -1,0 +1,12 @@
+/.cache
+/.mc-lists.el
+/.org-id-locations
+/auto-save-list
+/babel-init.el
+/bookmarks
+/elpa
+/org-roam.db
+/projectile-bookmarks.eld
+/racket-mode
+/recentf
+/transient
