@@ -197,17 +197,6 @@ Packages I want to install with every fresh Emacs.
 (use-package multiple-cursors
   :bind (("C-c m c" . mc/edit-lines)))
 
-(use-package org-roam
-  :hook
-  (after-init . org-roam-mode)
-  :custom
-  (org-roam-directory (concat (file-name-as-directory org-directory) "roam"))
-  (org-roam-dailies-capture-templates
-    '(("d" "default" entry (function org-roam-capture--get-point)
-     "* %?"
-     :file-name "daily/%<%Y-%m-%d>"
-     :head "#+title: %<%B %e, %Y>\n#+roam_tags: \n\n* "))))
-
 (use-package racket-mode)
 
 (use-package projectile
